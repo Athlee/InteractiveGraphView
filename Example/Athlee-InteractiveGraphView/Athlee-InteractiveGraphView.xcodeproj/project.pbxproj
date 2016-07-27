@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04A488E01D49803F00BCB35E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A488DF1D49803F00BCB35E /* AppDelegate.swift */; };
+		04A488E21D49803F00BCB35E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A488E11D49803F00BCB35E /* ViewController.swift */; };
+		04A488E51D49803F00BCB35E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A488E31D49803F00BCB35E /* Main.storyboard */; };
+		04A488E71D49803F00BCB35E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A488E61D49803F00BCB35E /* Assets.xcassets */; };
+		04A488EA1D49803F00BCB35E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A488E81D49803F00BCB35E /* LaunchScreen.storyboard */; };
+		04A488F51D49803F00BCB35E /* Athlee_InteractiveGraphViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A488F41D49803F00BCB35E /* Athlee_InteractiveGraphViewTests.swift */; };
+		04A4890B1D49805000BCB35E /* CanvasType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489001D49805000BCB35E /* CanvasType.swift */; };
+		04A4890C1D49805000BCB35E /* CurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489011D49805000BCB35E /* CurveView.swift */; };
+		04A4890D1D49805000BCB35E /* DecoratorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489021D49805000BCB35E /* DecoratorType.swift */; };
+		04A4890E1D49805000BCB35E /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489031D49805000BCB35E /* Drawable.swift */; };
+		04A4890F1D49805000BCB35E /* InteractiveGraphDecorations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489041D49805000BCB35E /* InteractiveGraphDecorations.swift */; };
+		04A489101D49805000BCB35E /* InteractiveGraphDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489051D49805000BCB35E /* InteractiveGraphDecorator.swift */; };
+		04A489111D49805000BCB35E /* InteractiveGraphDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489061D49805000BCB35E /* InteractiveGraphDrawable.swift */; };
+		04A489121D49805000BCB35E /* InteractiveGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489071D49805000BCB35E /* InteractiveGraphView.swift */; };
+		04A489131D49805000BCB35E /* InteractiveGraphViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489081D49805000BCB35E /* InteractiveGraphViewDataSource.swift */; };
+		04A489141D49805000BCB35E /* InteractiveGraphViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A489091D49805000BCB35E /* InteractiveGraphViewDelegate.swift */; };
+		04A489151D49805000BCB35E /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4890A1D49805000BCB35E /* PathBuilder.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04A488F11D49803F00BCB35E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A488D41D49803F00BCB35E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04A488DB1D49803F00BCB35E;
+			remoteInfo = "Athlee-InteractiveGraphView";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04A488DC1D49803F00BCB35E /* Athlee-InteractiveGraphView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Athlee-InteractiveGraphView.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04A488DF1D49803F00BCB35E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		04A488E11D49803F00BCB35E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04A488E41D49803F00BCB35E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		04A488E61D49803F00BCB35E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04A488E91D49803F00BCB35E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		04A488EB1D49803F00BCB35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04A488F01D49803F00BCB35E /* Athlee-InteractiveGraphViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Athlee-InteractiveGraphViewTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04A488F41D49803F00BCB35E /* Athlee_InteractiveGraphViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlee_InteractiveGraphViewTests.swift; sourceTree = "<group>"; };
+		04A488F61D49803F00BCB35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04A489001D49805000BCB35E /* CanvasType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasType.swift; sourceTree = "<group>"; };
+		04A489011D49805000BCB35E /* CurveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurveView.swift; sourceTree = "<group>"; };
+		04A489021D49805000BCB35E /* DecoratorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoratorType.swift; sourceTree = "<group>"; };
+		04A489031D49805000BCB35E /* Drawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
+		04A489041D49805000BCB35E /* InteractiveGraphDecorations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveGraphDecorations.swift; sourceTree = "<group>"; };
+		04A489051D49805000BCB35E /* InteractiveGraphDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveGraphDecorator.swift; sourceTree = "<group>"; };
+		04A489061D49805000BCB35E /* InteractiveGraphDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveGraphDrawable.swift; sourceTree = "<group>"; };
+		04A489071D49805000BCB35E /* InteractiveGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveGraphView.swift; sourceTree = "<group>"; };
+		04A489081D49805000BCB35E /* InteractiveGraphViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveGraphViewDataSource.swift; sourceTree = "<group>"; };
+		04A489091D49805000BCB35E /* InteractiveGraphViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveGraphViewDelegate.swift; sourceTree = "<group>"; };
+		04A4890A1D49805000BCB35E /* PathBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04A488D91D49803F00BCB35E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A488ED1D49803F00BCB35E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04A488D31D49803F00BCB35E = {
+			isa = PBXGroup;
+			children = (
+				04A488FF1D49805000BCB35E /* Source */,
+				04A488DE1D49803F00BCB35E /* Athlee-InteractiveGraphView */,
+				04A488F31D49803F00BCB35E /* Athlee-InteractiveGraphViewTests */,
+				04A488DD1D49803F00BCB35E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04A488DD1D49803F00BCB35E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04A488DC1D49803F00BCB35E /* Athlee-InteractiveGraphView.app */,
+				04A488F01D49803F00BCB35E /* Athlee-InteractiveGraphViewTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04A488DE1D49803F00BCB35E /* Athlee-InteractiveGraphView */ = {
+			isa = PBXGroup;
+			children = (
+				04A488DF1D49803F00BCB35E /* AppDelegate.swift */,
+				04A488E11D49803F00BCB35E /* ViewController.swift */,
+				04A488E31D49803F00BCB35E /* Main.storyboard */,
+				04A488E61D49803F00BCB35E /* Assets.xcassets */,
+				04A488E81D49803F00BCB35E /* LaunchScreen.storyboard */,
+				04A488EB1D49803F00BCB35E /* Info.plist */,
+			);
+			path = "Athlee-InteractiveGraphView";
+			sourceTree = "<group>";
+		};
+		04A488F31D49803F00BCB35E /* Athlee-InteractiveGraphViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				04A488F41D49803F00BCB35E /* Athlee_InteractiveGraphViewTests.swift */,
+				04A488F61D49803F00BCB35E /* Info.plist */,
+			);
+			path = "Athlee-InteractiveGraphViewTests";
+			sourceTree = "<group>";
+		};
+		04A488FF1D49805000BCB35E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				04A489001D49805000BCB35E /* CanvasType.swift */,
+				04A489011D49805000BCB35E /* CurveView.swift */,
+				04A489021D49805000BCB35E /* DecoratorType.swift */,
+				04A489031D49805000BCB35E /* Drawable.swift */,
+				04A489041D49805000BCB35E /* InteractiveGraphDecorations.swift */,
+				04A489051D49805000BCB35E /* InteractiveGraphDecorator.swift */,
+				04A489061D49805000BCB35E /* InteractiveGraphDrawable.swift */,
+				04A489071D49805000BCB35E /* InteractiveGraphView.swift */,
+				04A489081D49805000BCB35E /* InteractiveGraphViewDataSource.swift */,
+				04A489091D49805000BCB35E /* InteractiveGraphViewDelegate.swift */,
+				04A4890A1D49805000BCB35E /* PathBuilder.swift */,
+			);
+			name = Source;
+			path = ../../Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04A488DB1D49803F00BCB35E /* Athlee-InteractiveGraphView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04A488F91D49803F00BCB35E /* Build configuration list for PBXNativeTarget "Athlee-InteractiveGraphView" */;
+			buildPhases = (
+				04A488D81D49803F00BCB35E /* Sources */,
+				04A488D91D49803F00BCB35E /* Frameworks */,
+				04A488DA1D49803F00BCB35E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Athlee-InteractiveGraphView";
+			productName = "Athlee-InteractiveGraphView";
+			productReference = 04A488DC1D49803F00BCB35E /* Athlee-InteractiveGraphView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		04A488EF1D49803F00BCB35E /* Athlee-InteractiveGraphViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04A488FC1D49803F00BCB35E /* Build configuration list for PBXNativeTarget "Athlee-InteractiveGraphViewTests" */;
+			buildPhases = (
+				04A488EC1D49803F00BCB35E /* Sources */,
+				04A488ED1D49803F00BCB35E /* Frameworks */,
+				04A488EE1D49803F00BCB35E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04A488F21D49803F00BCB35E /* PBXTargetDependency */,
+			);
+			name = "Athlee-InteractiveGraphViewTests";
+			productName = "Athlee-InteractiveGraphViewTests";
+			productReference = 04A488F01D49803F00BCB35E /* Athlee-InteractiveGraphViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04A488D41D49803F00BCB35E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Athlee;
+				TargetAttributes = {
+					04A488DB1D49803F00BCB35E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					04A488EF1D49803F00BCB35E = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 04A488DB1D49803F00BCB35E;
+					};
+				};
+			};
+			buildConfigurationList = 04A488D71D49803F00BCB35E /* Build configuration list for PBXProject "Athlee-InteractiveGraphView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 04A488D31D49803F00BCB35E;
+			productRefGroup = 04A488DD1D49803F00BCB35E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04A488DB1D49803F00BCB35E /* Athlee-InteractiveGraphView */,
+				04A488EF1D49803F00BCB35E /* Athlee-InteractiveGraphViewTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04A488DA1D49803F00BCB35E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A488EA1D49803F00BCB35E /* LaunchScreen.storyboard in Resources */,
+				04A488E71D49803F00BCB35E /* Assets.xcassets in Resources */,
+				04A488E51D49803F00BCB35E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A488EE1D49803F00BCB35E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04A488D81D49803F00BCB35E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A488E21D49803F00BCB35E /* ViewController.swift in Sources */,
+				04A489111D49805000BCB35E /* InteractiveGraphDrawable.swift in Sources */,
+				04A489151D49805000BCB35E /* PathBuilder.swift in Sources */,
+				04A4890D1D49805000BCB35E /* DecoratorType.swift in Sources */,
+				04A4890B1D49805000BCB35E /* CanvasType.swift in Sources */,
+				04A4890E1D49805000BCB35E /* Drawable.swift in Sources */,
+				04A4890C1D49805000BCB35E /* CurveView.swift in Sources */,
+				04A489101D49805000BCB35E /* InteractiveGraphDecorator.swift in Sources */,
+				04A489141D49805000BCB35E /* InteractiveGraphViewDelegate.swift in Sources */,
+				04A4890F1D49805000BCB35E /* InteractiveGraphDecorations.swift in Sources */,
+				04A489121D49805000BCB35E /* InteractiveGraphView.swift in Sources */,
+				04A488E01D49803F00BCB35E /* AppDelegate.swift in Sources */,
+				04A489131D49805000BCB35E /* InteractiveGraphViewDataSource.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A488EC1D49803F00BCB35E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A488F51D49803F00BCB35E /* Athlee_InteractiveGraphViewTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04A488F21D49803F00BCB35E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04A488DB1D49803F00BCB35E /* Athlee-InteractiveGraphView */;
+			targetProxy = 04A488F11D49803F00BCB35E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		04A488E31D49803F00BCB35E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04A488E41D49803F00BCB35E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		04A488E81D49803F00BCB35E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04A488E91D49803F00BCB35E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04A488F71D49803F00BCB35E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		04A488F81D49803F00BCB35E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04A488FA1D49803F00BCB35E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Athlee-InteractiveGraphView/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphView";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		04A488FB1D49803F00BCB35E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Athlee-InteractiveGraphView/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphView";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		04A488FD1D49803F00BCB35E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Athlee-InteractiveGraphViewTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphViewTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-InteractiveGraphView.app/Athlee-InteractiveGraphView";
+			};
+			name = Debug;
+		};
+		04A488FE1D49803F00BCB35E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Athlee-InteractiveGraphViewTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphViewTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-InteractiveGraphView.app/Athlee-InteractiveGraphView";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04A488D71D49803F00BCB35E /* Build configuration list for PBXProject "Athlee-InteractiveGraphView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A488F71D49803F00BCB35E /* Debug */,
+				04A488F81D49803F00BCB35E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04A488F91D49803F00BCB35E /* Build configuration list for PBXNativeTarget "Athlee-InteractiveGraphView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A488FA1D49803F00BCB35E /* Debug */,
+				04A488FB1D49803F00BCB35E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		04A488FC1D49803F00BCB35E /* Build configuration list for PBXNativeTarget "Athlee-InteractiveGraphViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A488FD1D49803F00BCB35E /* Debug */,
+				04A488FE1D49803F00BCB35E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04A488D41D49803F00BCB35E /* Project object */;
+}

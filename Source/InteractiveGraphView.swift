@@ -214,6 +214,10 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   internal func didRecognizeTapGesture(recognizer: UITapGestureRecognizer) {
     let point = nearestPoint(to: recognizer.locationInView(self))
     selectionLayer.position.x = point.x
+    
+    if let index = points.indexOf(point) {
+      delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
+    }
   }
   
   private var previousPoint: CGPoint = .zero
