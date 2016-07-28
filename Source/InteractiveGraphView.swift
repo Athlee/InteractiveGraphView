@@ -197,8 +197,23 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       if let subview = subview as? CurveView {
         selectionLayer.frame.size = CGSize(width: width, height: bounds.height)
         selectionLayer.opaque = false
-        selectionLayer.backgroundColor = UIColor.blackColor().alpha(0.7).CGColor
-      
+        
+        selectionLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = selectionLayer.bounds
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        gradientLayer.colors = [
+          UIColor.blackColor().alpha(0.05).CGColor,
+          UIColor.blackColor().alpha(0.7).CGColor
+        ]
+        
+        gradientLayer.locations = [ 0, 1 ]
+        
+        selectionLayer.addSublayer(gradientLayer)
+        selectionLayer.backgroundColor = UIColor.clearColor().CGColor
+        
         subview.layer.insertSublayer(selectionLayer, atIndex: 1)
         
         let point = points.last!
