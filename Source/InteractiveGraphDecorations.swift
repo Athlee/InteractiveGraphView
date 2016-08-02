@@ -9,14 +9,33 @@
 import UIKit 
 
 public struct InteractiveGraphDecorations {
-  let startColor: UIColor
-  let endColor: UIColor
-  let curveColor: UIColor
-  let startAlpha: CGFloat
-  let endAlpha: CGFloat
+  public let startColor: UIColor
+  public let endColor: UIColor
+  public let curveColor: UIColor
+  public let startAlpha: CGFloat
+  public let endAlpha: CGFloat
   
-  let dotColor: UIColor
-  let dotTintColor: UIColor
+  public let dotColor: UIColor
+  public let dotTintColor: UIColor
 
-  let selectionColor: UIColor
+  public let selectionColor: UIColor
+  
+  public init(startColor: UIColor,
+              endColor: UIColor,
+              curveColor: UIColor,
+              startAlpha: CGFloat,
+              endAlpha: CGFloat,
+              dotColor: UIColor,
+              dotTintColor: UIColor,
+              selectionColor: UIColor) {
+    
+    self.startColor = startColor
+    self.endColor = endColor
+    self.curveColor = curveColor
+    self.startAlpha = startAlpha
+    self.endAlpha = endAlpha
+    self.dotColor = dotColor
+    self.dotTintColor = dotTintColor
+    self.selectionColor = selectionColor
+  }
 }

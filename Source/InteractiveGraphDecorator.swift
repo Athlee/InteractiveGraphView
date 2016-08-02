@@ -10,4 +10,8 @@ import Foundation
 
 public struct InteractiveGraphDecorator: DecoratorType {
   public let decorations: InteractiveGraphDecorations
+  
+  public init(decorations: InteractiveGraphDecorations) {
+    self.decorations = decorations
+  }
 }

@@ -52,6 +52,10 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     }
   }
   
+  public var selectedValue: (value: Double, title: String)? {
+    return values[selectedIndex]
+  }
+  
   // MARK: Private properties
   
   private let verticalOffset: CGFloat = 40
@@ -112,6 +116,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   public func reloadData() {
     selectedDot.removeFromSuperview()
+    selectedDot.backgroundColor = decorator.decorations.dotTintColor
     
     reset()
     collectDataPoints()
@@ -127,6 +132,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   }
   
   private func updateSelectedDot() {
+    guard !points.isEmpty else { return }
+    
     let center = points[selectedIndex]
     selectedDot.center = center
     selectedDot.transform = CGAffineTransformMakeScale(0.7, 0.7)
@@ -241,7 +248,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       label.layer.masksToBounds = false
       label.layer.shouldRasterize = true
       label.layer.rasterizationScale = traitCollection.displayScale
-      label.layer.opaque = true
+      label.layer.opaque = false
       
       addSubview(label)
     }
