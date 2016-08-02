@@ -16,19 +16,20 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     return self
   }
   
-  public var decorator: InteractiveGraphDecorator {
+  public lazy var decorator: InteractiveGraphDecorator = {
     return InteractiveGraphDecorator(decorations:
       InteractiveGraphDecorations(
         startColor: UIColor.whiteColor(),
         endColor: UIColor.whiteColor(),
         curveColor: UIColor.whiteColor(),
-        startAlpha: 0.8,
-        endAlpha: 0.2,
+        startAlpha: 0.6,
+        endAlpha: 0.05,
         dotColor: UIColor(hex: 0xEFEFEF),
-        dotTintColor: UIColor(hex: 0x00B6FF)
+        dotTintColor: UIColor(hex: 0x00B6FF),
+        selectionColor: UIColor(hex: 0x00B6FF)
       )
     )
-  }
+  }()
   
   public lazy var drawable: InteractiveGraphDrawable<InteractiveGraphView, InteractiveGraphDecorator> = {
     return InteractiveGraphDrawable(canvas: self, decorator: self.decorator)
@@ -38,14 +39,20 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   public var dataSource: InteractiveGraphViewDataSource? {
     didSet {
-      collectDataPoints()
-      buildCurve()
+      reloadData()
     }
   }
   
   public var delegate: InteractiveGraphViewDelegate?
   
-  // MARK: Private properties 
+  public var selectedIndex: Int = 0 {
+    didSet {
+      guard !points.isEmpty else { return }
+      updateSelectedDot()
+    }
+  }
+  
+  // MARK: Private properties
   
   private let verticalOffset: CGFloat = 40
   private let dotCircleRadius: CGFloat = 7
@@ -62,6 +69,17 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   }()
   
   private lazy var selectionLayer = CALayer()
+  
+  private lazy var selectedDot: UIView = {
+    let radius = self.dotCircleRadius * 1.3
+    
+    let selectedDot = UIView()
+    selectedDot.frame.size = CGSize(width: radius, height: radius)
+    selectedDot.layer.cornerRadius = radius / 2
+    selectedDot.backgroundColor = self.decorator.decorations.dotTintColor
+    
+    return selectedDot
+  }()
   
   // MARK: Life cycle
   
@@ -83,12 +101,48 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   public override func layoutSubviews() {
     super.layoutSubviews()
+    updateSelectedDot()
   }
   
   // MARK: Public GraphView funtions 
   
   public func valueForIndex(index: Int) -> Double? {
     return values[index]?.value
+  }
+  
+  public func reloadData() {
+    selectedDot.removeFromSuperview()
+    
+    reset()
+    collectDataPoints()
+    buildCurve()
+    
+    selectedIndex = points.count - 1
+  }
+  
+  // MARK: Private utils 
+  
+  private func reset() {
+    values = [:]
+  }
+  
+  private func updateSelectedDot() {
+    let center = points[selectedIndex]
+    selectedDot.center = center
+    selectedDot.transform = CGAffineTransformMakeScale(0.7, 0.7)
+    view.addSubview(selectedDot)
+    
+    UIView.animateWithDuration(
+      0.5,
+      delay: 0,
+      usingSpringWithDamping: 0.4,
+      initialSpringVelocity: 0,
+      options: .CurveEaseInOut,
+      animations: {
+        self.selectedDot.transform = CGAffineTransformIdentity
+      },
+      completion: nil
+    )
   }
   
   // MARK: Setup
@@ -142,6 +196,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       points += [point]
     }
     
+    layer.drawsAsynchronously = true 
+    
     drawable.drawCurve(points: [CGPoint(x: -bounds.width / 2, y: minY)] + points + [CGPoint(x: bounds.width * 1.5, y: minY)])
     
     addDataPoints()
@@ -160,7 +216,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     for (i, point) in points.enumerate() {
       let label = UILabel()
       label.font = UIFont.systemFontOfSize(15)
-      label.textColor = textColor
+      label.textColor = textColor.alpha(0.7)
       label.text = formatter.stringFromNumber(values[i]!.value)
       label.sizeToFit()
       label.center = CGPoint(x: point.x, y: point.y - dotCircleRadius * 2.5)
@@ -173,7 +229,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     for (i, point) in points.enumerate() {
       let label = UILabel()
       label.font = UIFont.systemFontOfSize(13)
-      label.textColor = textColor
+      label.textColor = textColor.alpha(0.7)
       label.text = values[i]!.title
       label.sizeToFit()
       label.center = CGPoint(x: point.x, y: bounds.maxY - (label.frame.height))
@@ -184,7 +240,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       label.layer.shadowOpacity = 0.6
       label.layer.masksToBounds = false
       label.layer.shouldRasterize = true
-      label.layer.rasterizationScale = UIScreen.mainScreen().scale
+      label.layer.rasterizationScale = traitCollection.displayScale
+      label.layer.opaque = true
       
       addSubview(label)
     }
@@ -195,25 +252,30 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     
     for subview in subviews {
       if let subview = subview as? CurveView {
+        
         selectionLayer.frame.size = CGSize(width: width, height: bounds.height)
         selectionLayer.opaque = false
         
         selectionLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
+        let selectionColor = decorator.decorations.selectionColor
+        
         let gradientLayer = CAGradientLayer()
+        gradientLayer.opaque = false
         gradientLayer.frame = selectionLayer.bounds
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         gradientLayer.colors = [
-          UIColor.blackColor().alpha(0.05).CGColor,
-          UIColor.blackColor().alpha(0.7).CGColor
+          selectionColor.alpha(0).CGColor,
+          selectionColor.alpha(0.45).CGColor,
+          selectionColor.alpha(0.7).CGColor
         ]
         
-        gradientLayer.locations = [ 0, 1 ]
+        gradientLayer.locations = [ 0, 0.8, 1 ]
         
         selectionLayer.addSublayer(gradientLayer)
         selectionLayer.backgroundColor = UIColor.clearColor().CGColor
-        
+      
         subview.layer.insertSublayer(selectionLayer, atIndex: 1)
         
         let point = points.last!
@@ -230,7 +292,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     let point = nearestPoint(to: recognizer.locationInView(self))
     selectionLayer.position.x = point.x
     
-    if let index = points.indexOf(point) {
+    if let index = points.indexOf(point) where selectedIndex != index {
+      selectedIndex = index
       delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
     }
   }
@@ -256,15 +319,17 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
       selectionLayer.frame.origin.x += delta
       CATransaction.commit()
+      
+      let centerPoint = nearestPoint(to: point)
+      if let index = points.indexOf(centerPoint) where selectedIndex != index {
+        selectedIndex = index
+        delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
+      }
     }
     
     if recognizer.state == .Ended {
       let centerPoint = nearestPoint(to: point)
       selectionLayer.position.x = centerPoint.x
-      
-      if let index = points.indexOf(centerPoint) {
-        delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
-      }
     }
   }
   
@@ -286,8 +351,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   // MARK: Geometry helpers 
   
   private func nearestPoint(to point: CGPoint) -> CGPoint {
-    let width = bounds.width / CGFloat(self.values.count)
-    return points.filter { abs(point.x - $0.x) < width / 2 }.first!
+    let width = bounds.width / CGFloat(self.points.count)
+    return points.filter { abs(point.x - $0.x) <= width / 2 }.first!
   }
   
   // MARK: Gesture recognizer delegate 
@@ -300,5 +365,4 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
                                 shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
-  
 }

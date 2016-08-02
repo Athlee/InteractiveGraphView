@@ -36,7 +36,6 @@ public extension PathBuilder where Point == CGPoint {
     
     for point in points {
       let midPoint = prevPoint <> point
-      
       path.addQuadCurveToPoint(midPoint, controlPoint: midPoint <?> prevPoint)
       path.addQuadCurveToPoint(point, controlPoint: midPoint <?> point)
       

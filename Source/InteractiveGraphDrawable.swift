@@ -12,7 +12,7 @@ public struct InteractiveGraphDrawable<T: CanvasType, U: DecoratorType where T.V
   
   public let canvas: T
   public let decorator: U
-  
+
   public func drawCurve(points points: [CGPoint]) {
     let curve = CurveView()
     curve.backgroundColor = .clearColor()
@@ -41,21 +41,21 @@ public struct InteractiveGraphDrawable<T: CanvasType, U: DecoratorType where T.V
     circleLayer.shadowRadius = 1
     circleLayer.shadowOpacity = 0.6
     circleLayer.masksToBounds = false
+    circleLayer.opaque = true
     circleLayer.shouldRasterize = true
     circleLayer.rasterizationScale = UIScreen.mainScreen().scale
     
-    let tintCirclePath = UIBezierPath(arcCenter: center,
-                                      radius: radius / 2,
-                                      startAngle: 0,
-                                      endAngle: CGFloat(M_PI) * 2,
-                                      clockwise: false)
-    
-    let tintCircleLayer = CAShapeLayer()
-    tintCircleLayer.path = tintCirclePath.CGPath
-    tintCircleLayer.fillColor = decorator.decorations.dotTintColor.CGColor
-    
+//    let tintCirclePath = UIBezierPath(arcCenter: center,
+//                                      radius: radius / 2,
+//                                      startAngle: 0,
+//                                      endAngle: CGFloat(M_PI) * 2,
+//                                      clockwise: false)
+//    
+//    let tintCircleLayer = CAShapeLayer()
+//    tintCircleLayer.path = tintCirclePath.CGPath
+//    tintCircleLayer.fillColor = decorator.decorations.dotTintColor.CGColor
     
     canvas.view.layer.addSublayer(circleLayer)
-    canvas.view.layer.addSublayer(tintCircleLayer)
+    //canvas.view.layer.addSublayer(tintCircleLayer)
   }
 }

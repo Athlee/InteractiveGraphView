@@ -17,4 +17,6 @@ public struct InteractiveGraphDecorations {
   
   let dotColor: UIColor
   let dotTintColor: UIColor
+
+  let selectionColor: UIColor
 }
