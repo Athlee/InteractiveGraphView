@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "InteractiveGraphView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.5"
   s.summary      = "An interactive graph view. Made easy."
   s.homepage     = "https://github.com/Athlee/InteractiveGraphView"
   s.license      = { :type => "MIT", :file => "LICENSE" }
