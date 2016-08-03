@@ -45,15 +45,20 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   public var delegate: InteractiveGraphViewDelegate?
   
-  public var selectedIndex: Int = 0 {
+  public var selectedIndex: Int? {
     didSet {
+      if let selectedIndex = selectedIndex where selectedIndex < 0 { self.selectedIndex = nil  }
       guard !points.isEmpty else { return }
       updateSelectedDot()
     }
   }
   
   public var selectedValue: (value: Double, title: String)? {
-    return values[selectedIndex]
+    guard let index = selectedIndex else {
+      return nil
+    }
+    
+    return values[index]
   }
   
   // MARK: Private properties
@@ -62,8 +67,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   private let dotCircleRadius: CGFloat = 7
   private let textColor = UIColor.whiteColor()
   
-  private var values: [Int: (value: Double, title: String)] = [:]
-  private var points: [CGPoint] = []
+  public private(set) var values: [Int: (value: Double, title: String)] = [:]
+  public private(set) var points: [CGPoint] = []
   
   private lazy var formatter: NSNumberFormatter = {
     let formatter = NSNumberFormatter()
@@ -133,8 +138,9 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   private func updateSelectedDot() {
     guard !points.isEmpty else { return }
+    guard let index = selectedIndex else { return }
     
-    let center = points[selectedIndex]
+    let center = points[index]
     selectedDot.center = center
     selectedDot.transform = CGAffineTransformMakeScale(0.7, 0.7)
     view.addSubview(selectedDot)
@@ -197,7 +203,8 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       }
       
       let x = (CGFloat(i) + 0.5) * horizontalSpace
-      let y = minY - (CGFloat(value) / CGFloat(maxValue)) * distanceDelta
+      let valueDelta = maxValue != 0 ? (CGFloat(value) / CGFloat(maxValue)) : 0
+      let y = minY - valueDelta * distanceDelta
       let point = CGPoint(x: x, y: y)
       
       points += [point]

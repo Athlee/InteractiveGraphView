@@ -148,6 +148,21 @@ public class CurveView: UIView, PathBuilder {
     
     CGContextRestoreGState(context)
     
+//    let gradientLayer = CAGradientLayer()
+//    gradientLayer.frame = bounds
+//    gradientLayer.locations = [0.05, 1]
+//    gradientLayer.colors = [startColor.alpha(startAlpha).CGColor,
+//                            endColor.alpha(endAlpha).CGColor]
+//    gradientLayer.rasterizationScale = traitCollection.displayScale
+//    gradientLayer.shouldRasterize = true
+//    gradientLayer.opaque = true
+//    
+//    let gradientMask = CAShapeLayer()
+//    gradientMask.path = clippingPath.CGPath
+//    gradientLayer.mask = gradientMask
+//    
+//    layer.addSublayer(gradientLayer)
+    
     //// Shadow Declarations
     let shadow = NSShadow()
     shadow.shadowColor = UIColor.blackColor()
