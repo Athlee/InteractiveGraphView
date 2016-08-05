@@ -49,7 +49,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     didSet {
       if let selectedIndex = selectedIndex where selectedIndex < 0 { self.selectedIndex = nil  }
       guard !points.isEmpty else { return }
-      updateSelectedDot()
+      //updateSelectedDot()
     }
   }
   
@@ -79,21 +79,17 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   private lazy var selectionLayer = CALayer()
   
-  private lazy var selectedDot: UIView = {
-    let radius = self.dotCircleRadius * 1.3
-    
-    let selectedDot = UIView()
-    selectedDot.frame.size = CGSize(width: radius, height: radius)
-    selectedDot.layer.cornerRadius = radius / 2
-    selectedDot.backgroundColor = self.decorator.decorations.dotTintColor
-    
-    return selectedDot
-  }()
+  public private(set) lazy var selectedDot = CALayer()
   
   // MARK: Life cycle
   
   public override func awakeFromNib() {
     super.awakeFromNib()
+    
+    let radius = self.dotCircleRadius * 1.3
+    selectedDot.frame.size = CGSize(width: radius, height: radius)
+    selectedDot.cornerRadius = radius / 2
+    selectedDot.backgroundColor = self.decorator.decorations.dotTintColor.CGColor
     
     let tapRec = UITapGestureRecognizer(target: self, action: #selector(InteractiveGraphView.didRecognizeTapGesture(_:)))
     tapRec.delegate = self
@@ -110,7 +106,10 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   public override func layoutSubviews() {
     super.layoutSubviews()
-    updateSelectedDot()
+    
+    if let index = selectedIndex where index < points.count {
+      selectedDot.position = points[index]
+    }
   }
   
   // MARK: Public GraphView funtions 
@@ -119,15 +118,27 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     return values[index]?.value
   }
   
-  public func reloadData() {
-    selectedDot.removeFromSuperview()
-    selectedDot.backgroundColor = decorator.decorations.dotTintColor
+  public func reloadData(animated animated: Bool = false) {
+    selectedDot.removeFromSuperlayer()
+    selectedDot.backgroundColor = decorator.decorations.dotTintColor.CGColor
+    
+    if animated {
+      UIView.animateWithDuration(0.1) {
+        self.alpha = 0
+      }
+    }
     
     reset()
     collectDataPoints()
     buildCurve()
     
     selectedIndex = points.count - 1
+    
+    if animated {
+      UIView.animateWithDuration(0.3) {
+        self.alpha = 1
+      }
+    }
   }
   
   // MARK: Private utils 
@@ -141,21 +152,13 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     guard let index = selectedIndex else { return }
     
     let center = points[index]
-    selectedDot.center = center
-    selectedDot.transform = CGAffineTransformMakeScale(0.7, 0.7)
-    view.addSubview(selectedDot)
     
-    UIView.animateWithDuration(
-      0.5,
-      delay: 0,
-      usingSpringWithDamping: 0.4,
-      initialSpringVelocity: 0,
-      options: .CurveEaseInOut,
-      animations: {
-        self.selectedDot.transform = CGAffineTransformIdentity
-      },
-      completion: nil
-    )
+    CATransaction.begin()
+    CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+    selectedDot.position = center
+    CATransaction.commit()
+    
+    layer.addSublayer(selectedDot)
   }
   
   // MARK: Setup
@@ -178,7 +181,6 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   private func buildCurve() {
     layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-    subviews.forEach { $0.removeFromSuperview() }
     
     let horizontalSpace = bounds.width / CGFloat(self.values.count)
     
@@ -268,7 +270,9 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       if let subview = subview as? CurveView {
         
         selectionLayer.frame.size = CGSize(width: width, height: bounds.height)
-        selectionLayer.opaque = false
+        selectionLayer.opaque = true
+        selectionLayer.rasterizationScale = traitCollection.displayScale
+        selectionLayer.shouldRasterize = true
         
         selectionLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
@@ -293,7 +297,19 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
         subview.layer.insertSublayer(selectionLayer, atIndex: 1)
         
         let point = points.last!
+        
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+          NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.updateSelectedDot()
+          }
+        }
+        
         selectionLayer.position = CGPoint(x: point.x, y: bounds.midY)
+        
+        CATransaction.commit()
+        
+        
         
         showSelectionLayer(true, animated: false)
       }
@@ -309,6 +325,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     if let index = points.indexOf(point) where selectedIndex != index {
       selectedIndex = index
       delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
+      updateSelectedDot()
     }
   }
   
@@ -338,6 +355,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       if let index = points.indexOf(centerPoint) where selectedIndex != index {
         selectedIndex = index
         delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
+        updateSelectedDot()
       }
     }
     
