@@ -32,14 +32,14 @@ internal extension UIColor {
 }
 
 /// Finds the middle point with given two CGPoints.
-infix operator <> { associativity left precedence 160 }
+infix operator <> : MultiplicationPrecedence
 
 func <>(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
   return CGPoint(x: (lhs.x + rhs.x) / 2, y: (lhs.y + rhs.y) / 2)
 }
 
 /// Finds the control point between two CGPoints.
-infix operator <?> { associativity left precedence 160 }
+infix operator <?> : MultiplicationPrecedence
 
 func <?>(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
   let midPoint = lhs <> rhs
