@@ -9,12 +9,12 @@
 import Foundation
 
 public protocol InteractiveGraphViewDelegate: class {
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, didSelectPointAtIndex index: Int)
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, didSelectPointAtIndex index: Int)
 }
 
 // optional implementations
 public extension InteractiveGraphViewDelegate {
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, didSelectPointAtIndex index: Int) {
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, didSelectPointAtIndex index: Int) {
     
   }
 }

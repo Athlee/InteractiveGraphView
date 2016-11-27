@@ -19,9 +19,9 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   public lazy var decorator: InteractiveGraphDecorator = {
     return InteractiveGraphDecorator(decorations:
       InteractiveGraphDecorations(
-        startColor: UIColor.whiteColor(),
-        endColor: UIColor.whiteColor(),
-        curveColor: UIColor.whiteColor(),
+        startColor: UIColor.white,
+        endColor: UIColor.white,
+        curveColor: UIColor.white,
         startAlpha: 0.6,
         endAlpha: 0.05,
         dotColor: UIColor(hex: 0xEFEFEF),
@@ -47,7 +47,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   public var selectedIndex: Int? {
     didSet {
-      if let selectedIndex = selectedIndex where selectedIndex < 0 { self.selectedIndex = nil  }
+      if let selectedIndex = selectedIndex, selectedIndex < 0 { self.selectedIndex = nil  }
       guard !points.isEmpty else { return }
       //updateSelectedDot()
     }
@@ -63,23 +63,23 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   // MARK: Private properties
   
-  private let verticalOffset: CGFloat = 40
-  private let dotCircleRadius: CGFloat = 7
-  private let textColor = UIColor.whiteColor()
+  fileprivate let verticalOffset: CGFloat = 40
+  fileprivate let dotCircleRadius: CGFloat = 7
+  fileprivate let textColor = UIColor.white
   
-  public private(set) var values: [Int: (value: Double, title: String)] = [:]
-  public private(set) var points: [CGPoint] = []
+  public fileprivate(set) var values: [Int : (value: Double, title: String)] = [:]
+  public fileprivate(set) var points: [CGPoint] = []
   
-  private lazy var formatter: NSNumberFormatter = {
-    let formatter = NSNumberFormatter()
-    formatter.numberStyle = .NoStyle
+  fileprivate lazy var formatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .none
     formatter.maximumFractionDigits = 1
     return formatter
   }()
   
-  private lazy var selectionLayer = CALayer()
+  fileprivate lazy var selectionLayer = CALayer()
   
-  public private(set) lazy var selectedDot = CALayer()
+  public fileprivate(set) lazy var selectedDot = CALayer()
   
   // MARK: Life cycle
   
@@ -89,7 +89,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     let radius = self.dotCircleRadius * 1.3
     selectedDot.frame.size = CGSize(width: radius, height: radius)
     selectedDot.cornerRadius = radius / 2
-    selectedDot.backgroundColor = self.decorator.decorations.dotTintColor.CGColor
+    selectedDot.backgroundColor = self.decorator.decorations.dotTintColor.cgColor
     
     let tapRec = UITapGestureRecognizer(target: self, action: #selector(InteractiveGraphView.didRecognizeTapGesture(_:)))
     tapRec.delegate = self
@@ -100,32 +100,32 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     addGestureRecognizer(panRec)
   }
   
-  public override func drawRect(rect: CGRect) {
+  public override func draw(_ rect: CGRect) {
     buildCurve()
   }
   
   public override func layoutSubviews() {
     super.layoutSubviews()
     
-    if let index = selectedIndex where index < points.count {
+    if let index = selectedIndex, index < points.count {
       selectedDot.position = points[index]
     }
   }
   
   // MARK: Public GraphView funtions 
   
-  public func valueForIndex(index: Int) -> Double? {
+  public func valueForIndex(_ index: Int) -> Double? {
     return values[index]?.value
   }
   
-  public func reloadData(animated animated: Bool = false) {
+  public func reloadData(animated: Bool = false) {
     selectedDot.removeFromSuperlayer()
-    selectedDot.backgroundColor = decorator.decorations.dotTintColor.CGColor
+    selectedDot.backgroundColor = decorator.decorations.dotTintColor.cgColor
     
     if animated {
-      UIView.animateWithDuration(0.1) {
+      UIView.animate(withDuration: 0.1, animations: {
         self.alpha = 0
-      }
+      }) 
     }
     
     reset()
@@ -135,19 +135,19 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     selectedIndex = points.count - 1
     
     if animated {
-      UIView.animateWithDuration(0.3) {
+      UIView.animate(withDuration: 0.3, animations: {
         self.alpha = 1
-      }
+      }) 
     }
   }
   
   // MARK: Private utils 
   
-  private func reset() {
+  fileprivate func reset() {
     values = [:]
   }
   
-  private func updateSelectedDot() {
+  fileprivate func updateSelectedDot() {
     guard !points.isEmpty else { return }
     guard let index = selectedIndex else { return }
     
@@ -163,7 +163,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   // MARK: Setup
   
-  private func collectDataPoints() {
+  fileprivate func collectDataPoints() {
     guard let dataSource = dataSource else {
       return
     }
@@ -179,7 +179,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     }
   }
   
-  private func buildCurve() {
+  fileprivate func buildCurve() {
     layer.sublayers?.forEach { $0.removeFromSuperlayer() }
     
     let horizontalSpace = bounds.width / CGFloat(self.values.count)
@@ -188,7 +188,7 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       return value
       }.map { $0 }
     
-    guard let maxValue = values.maxElement() else {
+    guard let maxValue = values.max() else {
       return
     }
     
@@ -222,18 +222,20 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     addSelectionLayer()
   }
   
-  private func addDataPoints() {
+  fileprivate func addDataPoints() {
     for point in points {
       drawable.drawCircle(center: point, radius: dotCircleRadius)
     }
   }
   
-  private func addDataPointValueLabels() {
-    for (i, point) in points.enumerate() {
+  fileprivate func addDataPointValueLabels() {
+    for (i, point) in points.enumerated() {
       let label = UILabel()
-      label.font = UIFont.systemFontOfSize(15)
+      let value = values[i]!.value
+      
+      label.font = UIFont.systemFont(ofSize: 15)
       label.textColor = textColor.alpha(0.7)
-      label.text = formatter.stringFromNumber(values[i]!.value)
+      label.text = formatter.string(from: NSNumber(value: value))
       label.sizeToFit()
       label.center = CGPoint(x: point.x, y: point.y - dotCircleRadius * 2.5)
       
@@ -241,36 +243,36 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
     }
   }
   
-  private func addDataPointLabels() {
-    for (i, point) in points.enumerate() {
+  fileprivate func addDataPointLabels() {
+    for (i, point) in points.enumerated() {
       let label = UILabel()
-      label.font = UIFont.systemFontOfSize(13)
+      label.font = UIFont.systemFont(ofSize: 13)
       label.textColor = textColor.alpha(0.7)
       label.text = values[i]!.title
       label.sizeToFit()
       label.center = CGPoint(x: point.x, y: bounds.maxY - (label.frame.height))
       
-      label.layer.shadowColor = UIColor.blackColor().CGColor
+      label.layer.shadowColor = UIColor.black.cgColor
       label.layer.shadowOffset = .zero
       label.layer.shadowRadius = 1
       label.layer.shadowOpacity = 0.6
       label.layer.masksToBounds = false
       label.layer.shouldRasterize = true
       label.layer.rasterizationScale = traitCollection.displayScale
-      label.layer.opaque = false
+      label.layer.isOpaque = false
       
       addSubview(label)
     }
   }
   
-  private func addSelectionLayer() {
+  fileprivate func addSelectionLayer() {
     let width = bounds.width / CGFloat(self.values.count)
     
     for subview in subviews {
       if let subview = subview as? CurveView {
         
         selectionLayer.frame.size = CGSize(width: width, height: bounds.height)
-        selectionLayer.opaque = true
+        selectionLayer.isOpaque = true
         selectionLayer.rasterizationScale = traitCollection.displayScale
         selectionLayer.shouldRasterize = true
         
@@ -279,28 +281,28 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
         let selectionColor = decorator.decorations.selectionColor
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.opaque = false
+        gradientLayer.isOpaque = false
         gradientLayer.frame = selectionLayer.bounds
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         gradientLayer.colors = [
-          selectionColor.alpha(0).CGColor,
-          selectionColor.alpha(0.45).CGColor,
-          selectionColor.alpha(0.7).CGColor
+          selectionColor.alpha(0).cgColor,
+          selectionColor.alpha(0.45).cgColor,
+          selectionColor.alpha(0.7).cgColor
         ]
         
         gradientLayer.locations = [ 0, 0.8, 1 ]
         
         selectionLayer.addSublayer(gradientLayer)
-        selectionLayer.backgroundColor = UIColor.clearColor().CGColor
+        selectionLayer.backgroundColor = UIColor.clear.cgColor
       
-        subview.layer.insertSublayer(selectionLayer, atIndex: 1)
+        subview.layer.insertSublayer(selectionLayer, at: 1)
         
         let point = points.last!
         
         CATransaction.begin()
         CATransaction.setCompletionBlock {
-          NSOperationQueue.mainQueue().addOperationWithBlock {
+          OperationQueue.main.addOperation {
             self.updateSelectedDot()
           }
         }
@@ -318,22 +320,22 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
  
   // MARK: Gesture recognizers 
   
-  internal func didRecognizeTapGesture(recognizer: UITapGestureRecognizer) {
-    let point = nearestPoint(to: recognizer.locationInView(self))
+  internal func didRecognizeTapGesture(_ recognizer: UITapGestureRecognizer) {
+    let point = nearestPoint(to: recognizer.location(in: self))
     selectionLayer.position.x = point.x
     
-    if let index = points.indexOf(point) where selectedIndex != index {
+    if let index = points.index(of: point), selectedIndex != index {
       selectedIndex = index
       delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
       updateSelectedDot()
     }
   }
   
-  private var previousPoint: CGPoint = .zero
-  internal func didRecognizePanGesture(recognizer: UIPanGestureRecognizer) {
+  fileprivate var previousPoint: CGPoint = .zero
+  internal func didRecognizePanGesture(_ recognizer: UIPanGestureRecognizer) {
     selectionLayer.removeAllAnimations()
-    let point = recognizer.locationInView(self)
-    guard recognizer.state != .Began else {
+    let point = recognizer.location(in: self)
+    guard recognizer.state != .began else {
       let centerPoint = nearestPoint(to: point)
       selectionLayer.position.x = centerPoint.x
       
@@ -352,14 +354,14 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
       CATransaction.commit()
       
       let centerPoint = nearestPoint(to: point)
-      if let index = points.indexOf(centerPoint) where selectedIndex != index {
+      if let index = points.index(of: centerPoint), selectedIndex != index {
         selectedIndex = index
         delegate?.interactiveGraphView(self, didSelectPointAtIndex: index)
         updateSelectedDot()
       }
     }
     
-    if recognizer.state == .Ended {
+    if recognizer.state == .ended {
       let centerPoint = nearestPoint(to: point)
       selectionLayer.position.x = centerPoint.x
     }
@@ -367,14 +369,14 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   // MARK: Animation helpers 
   
-  private func showSelectionLayer(show: Bool, animated: Bool = true) {
+  fileprivate func showSelectionLayer(_ show: Bool, animated: Bool = true) {
     if animated {
       let animation = CABasicAnimation(keyPath: "opacity")
       animation.toValue = show ? 1 : 0
-      animation.removedOnCompletion = false
+      animation.isRemovedOnCompletion = false
       animation.fillMode = kCAFillModeBoth
       
-      selectionLayer.addAnimation(animation, forKey: nil)
+      selectionLayer.add(animation, forKey: nil)
     } else {
       selectionLayer.opacity = show ? 1 : 0
     }
@@ -382,19 +384,19 @@ public final class InteractiveGraphView: UIView, CanvasType, UIGestureRecognizer
   
   // MARK: Geometry helpers 
   
-  private func nearestPoint(to point: CGPoint) -> CGPoint {
+  fileprivate func nearestPoint(to point: CGPoint) -> CGPoint {
     let width = bounds.width / CGFloat(self.points.count)
     return points.filter { abs(point.x - $0.x) <= width / 2 }.first!
   }
   
   // MARK: Gesture recognizer delegate 
   
-  public override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+  public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
   
-  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer,
-                                shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
 }

@@ -22,10 +22,10 @@ public extension PathBuilder where Point == CGPoint {
     }
     
     let path = UIBezierPath()
-    path.moveToPoint(firstPoint)
+    path.move(to: firstPoint)
     
     if points.count == 2 {
-      path.addLineToPoint(points[1])
+      path.addLine(to: points[1])
       
       return path
     }
@@ -36,8 +36,8 @@ public extension PathBuilder where Point == CGPoint {
     
     for point in points {
       let midPoint = prevPoint <> point
-      path.addQuadCurveToPoint(midPoint, controlPoint: midPoint <?> prevPoint)
-      path.addQuadCurveToPoint(point, controlPoint: midPoint <?> point)
+      path.addQuadCurve(to: midPoint, controlPoint: midPoint <?> prevPoint)
+      path.addQuadCurve(to: point, controlPoint: midPoint <?> point)
       
       prevPoint = point
     }
