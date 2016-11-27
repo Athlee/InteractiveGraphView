@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040670441D56805100521457 /* CubicCurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040670431D56805100521457 /* CubicCurveAlgorithm.swift */; };
 		04A488E01D49803F00BCB35E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A488DF1D49803F00BCB35E /* AppDelegate.swift */; };
 		04A488E21D49803F00BCB35E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A488E11D49803F00BCB35E /* ViewController.swift */; };
 		04A488E51D49803F00BCB35E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A488E31D49803F00BCB35E /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040670431D56805100521457 /* CubicCurveAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurveAlgorithm.swift; sourceTree = "<group>"; };
 		04A488DC1D49803F00BCB35E /* Athlee-InteractiveGraphView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Athlee-InteractiveGraphView.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A488DF1D49803F00BCB35E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A488E11D49803F00BCB35E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				04A489081D49805000BCB35E /* InteractiveGraphViewDataSource.swift */,
 				04A489091D49805000BCB35E /* InteractiveGraphViewDelegate.swift */,
 				04A4890A1D49805000BCB35E /* PathBuilder.swift */,
+				040670431D56805100521457 /* CubicCurveAlgorithm.swift */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -188,9 +191,12 @@
 				TargetAttributes = {
 					04A488DB1D49803F00BCB35E = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = RG4N372RZE;
+						LastSwiftMigration = 0810;
 					};
 					04A488EF1D49803F00BCB35E = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 04A488DB1D49803F00BCB35E;
 					};
 				};
@@ -247,6 +253,7 @@
 				04A4890E1D49805000BCB35E /* Drawable.swift in Sources */,
 				04A4890C1D49805000BCB35E /* CurveView.swift in Sources */,
 				04A489101D49805000BCB35E /* InteractiveGraphDecorator.swift in Sources */,
+				040670441D56805100521457 /* CubicCurveAlgorithm.swift in Sources */,
 				04A489141D49805000BCB35E /* InteractiveGraphViewDelegate.swift in Sources */,
 				04A4890F1D49805000BCB35E /* InteractiveGraphDecorations.swift in Sources */,
 				04A489121D49805000BCB35E /* InteractiveGraphView.swift in Sources */,
@@ -380,10 +387,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RG4N372RZE;
 				INFOPLIST_FILE = "Athlee-InteractiveGraphView/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphView";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphView-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -391,10 +400,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RG4N372RZE;
 				INFOPLIST_FILE = "Athlee-InteractiveGraphView/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphView";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphView-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -406,6 +417,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphViewTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-InteractiveGraphView.app/Athlee-InteractiveGraphView";
 			};
 			name = Debug;
@@ -418,6 +430,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-InteractiveGraphViewTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-InteractiveGraphView.app/Athlee-InteractiveGraphView";
 			};
 			name = Release;
@@ -441,6 +454,7 @@
 				04A488FB1D49803F00BCB35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04A488FC1D49803F00BCB35E /* Build configuration list for PBXNativeTarget "Athlee-InteractiveGraphViewTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +463,7 @@
 				04A488FE1D49803F00BCB35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

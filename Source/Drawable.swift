@@ -15,13 +15,13 @@ public protocol Drawable {
   var canvas: Canvas { get }
   var decorator: Decorator { get }
   
-  func drawLine(startPoint startPoint: CGPoint, endPoint: CGPoint)
-  func drawCircle(center center: CGPoint, radius: CGFloat)
-  func drawCurve(points points: [CGPoint])
+  func drawLine(startPoint: CGPoint, endPoint: CGPoint)
+  func drawCircle(center: CGPoint, radius: CGFloat)
+  func drawCurve(points: [CGPoint])
 }
 
 public extension Drawable {
-  func drawLine(startPoint startPoint: CGPoint, endPoint: CGPoint) { }
-  func drawCircle(center center: CGPoint, radius: CGFloat) { }
-  func drawCurve(points points: [CGPoint]) { }
+  func drawLine(startPoint: CGPoint, endPoint: CGPoint) { }
+  func drawCircle(center: CGPoint, radius: CGFloat) { }
+  func drawCurve(points: [CGPoint]) { }
 }

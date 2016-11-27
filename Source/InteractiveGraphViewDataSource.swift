@@ -10,6 +10,6 @@ import Foundation
 
 public protocol InteractiveGraphViewDataSource: class {
   func numberOfPoints() -> Int
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, valueAtIndex index: Int) -> Double
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, titleAtIndex index: Int) -> String
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, valueAtIndex index: Int) -> Double
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, titleAtIndex index: Int) -> String
 }

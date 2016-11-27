@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIColor {
-  func alpha(alpha: CGFloat) -> UIColor {
+  func alpha(_ alpha: CGFloat) -> UIColor {
     var red: CGFloat = 0
     var green: CGFloat = 0
     var blue: CGFloat = 0
@@ -56,64 +56,64 @@ func <?>(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
   return point
 }
 
-public class CurveView: UIView, PathBuilder {
-  public var points: [CGPoint] = [] {
+open class CurveView: UIView, PathBuilder {
+  open var points: [CGPoint] = [] {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  public var startColor: UIColor = UIColor.whiteColor() {
+  open var startColor: UIColor = UIColor.white {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  public var endColor: UIColor = UIColor.whiteColor() {
+  open var endColor: UIColor = UIColor.white {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  public var curveColor: UIColor = UIColor.whiteColor() {
+  open var curveColor: UIColor = UIColor.white {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  public var startAlpha: CGFloat = 0.8 {
+  open var startAlpha: CGFloat = 0.8 {
     didSet {
       setNeedsDisplay()
     }
   }
   
   
-  public var endAlpha: CGFloat = 0.2 {
+  open var endAlpha: CGFloat = 0.2 {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  @available(*, unavailable, deprecated=0.0.5, message="The curve view is now using a bitmap images for better performance.")
-  public private(set) var curveLayer: CAShapeLayer?
+  @available(*, unavailable, deprecated: 0.0.5, message: "The curve view is now using a bitmap images for better performance.")
+  open fileprivate(set) var curveLayer: CAShapeLayer?
   
-  @available(*, unavailable, deprecated=0.0.5, message="The curve view is now using a bitmap images for better performance.")
-  public private(set) var gradientLayer: CAGradientLayer?
+  @available(*, unavailable, deprecated: 0.0.5, message: "The curve view is now using a bitmap images for better performance.")
+  open fileprivate(set) var gradientLayer: CAGradientLayer?
   
-  @available(*, unavailable, deprecated=0.0.5, message="The curve view is now using a bitmap images for better performance.")
-  public private(set) var gradientView: UIView?
+  @available(*, unavailable, deprecated: 0.0.5, message: "The curve view is now using a bitmap images for better performance.")
+  open fileprivate(set) var gradientView: UIView?
   
-  override public func drawRect(rect: CGRect) {
+  override open func draw(_ rect: CGRect) {
     //// Draw the curve line.
-    guard let path = quadCurvedPathWithPoints(points) else {
+    guard let path = quadCurvedPathWithPoints(points: points) else {
       return
     }
     
-    guard let first = points.first, last = points.last else {
+    guard let first = points.first, let last = points.last else {
       return
     }
     
-    opaque = true
+    isOpaque = true
     
     layer.rasterizationScale = traitCollection.displayScale
     layer.shouldRasterize = true
@@ -122,31 +122,34 @@ public class CurveView: UIView, PathBuilder {
     //// Clip the curve, so we can get the final shape.
     let clippingPath = path.copy() as! UIBezierPath
     
-    clippingPath.addLineToPoint(CGPoint(x: last.x, y: bounds.height))
-    clippingPath.addLineToPoint(CGPoint(x: first.x, y: bounds.height))
-    clippingPath.closePath()
+    clippingPath.addLine(to: CGPoint(x: last.x, y: bounds.height))
+    clippingPath.addLine(to: CGPoint(x: first.x, y: bounds.height))
+    clippingPath.close()
     
     
     
     let context = UIGraphicsGetCurrentContext()
     
     //// Gradient Declarations
-    let gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(),
-                                              [startColor.alpha(startAlpha).CGColor,
-                                                endColor.alpha(endAlpha).CGColor],
-                                              [0.05, 1])!
+    
+    
+    
+    let colors = [startColor.alpha(startAlpha).cgColor,
+                  endColor.alpha(endAlpha).cgColor] as CFArray
+    let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                                              colors: colors,
+                                              locations: [0.05, 1])!
     
     //// Oval Drawing
-    CGContextSaveGState(context)
+    context?.saveGState()
     clippingPath.addClip()
     
-    CGContextDrawLinearGradient(context,
-                                gradient,
-                                CGPoint(x: bounds.midX, y: bounds.minY),
-                                CGPoint(x: bounds.midX, y: bounds.maxY),
-                                CGGradientDrawingOptions())
+    context?.drawLinearGradient(gradient,
+                                start: CGPoint(x: bounds.midX, y: bounds.minY),
+                                end: CGPoint(x: bounds.midX, y: bounds.maxY),
+                                options: CGGradientDrawingOptions())
     
-    CGContextRestoreGState(context)
+    context?.restoreGState()
     
 //    let gradientLayer = CAGradientLayer()
 //    gradientLayer.frame = bounds
@@ -165,15 +168,15 @@ public class CurveView: UIView, PathBuilder {
     
     //// Shadow Declarations
     let shadow = NSShadow()
-    shadow.shadowColor = UIColor.blackColor()
-    shadow.shadowOffset = CGSizeMake(0.1, 1.1)
+    shadow.shadowColor = UIColor.black
+    shadow.shadowOffset = CGSize(width: 0.1, height: 1.1)
     shadow.shadowBlurRadius = 2
     
-    CGContextSaveGState(context)
-    CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, (shadow.shadowColor as! UIColor).CGColor)
+    context?.saveGState()
+    context?.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
     curveColor.set()
     path.lineWidth = 3.5
     path.stroke()
-    CGContextRestoreGState(context)
+    context?.restoreGState()
   }
 }

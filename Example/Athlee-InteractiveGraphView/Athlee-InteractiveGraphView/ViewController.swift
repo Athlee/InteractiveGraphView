@@ -25,7 +25,7 @@ extension ViewController: InteractiveGraphViewDataSource, InteractiveGraphViewDe
     return 7
   }
   
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, valueAtIndex index: Int) -> Double {
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, valueAtIndex index: Int) -> Double {
     switch index {
     case 0:
       return 10
@@ -46,7 +46,7 @@ extension ViewController: InteractiveGraphViewDataSource, InteractiveGraphViewDe
     }
   }
   
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, titleAtIndex index: Int) -> String {
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, titleAtIndex index: Int) -> String {
     switch index {
     case 0:
       return "MON"
@@ -67,7 +67,7 @@ extension ViewController: InteractiveGraphViewDataSource, InteractiveGraphViewDe
     }
   }
   
-  func interactiveGraphView(interactiveGraphView: InteractiveGraphView, didSelectPointAtIndex index: Int) {
+  func interactiveGraphView(_ interactiveGraphView: InteractiveGraphView, didSelectPointAtIndex index: Int) {
     if let value = interactiveGraphView.valueForIndex(index) {
       print("Selected value=\(value)")
     }
